@@ -8271,7 +8271,7 @@ static int sayphoneticstr(struct ast_channel *mychannel,char *str)
 {
 int	res;
 
-	res = ast_say_phonetic_str(mychannel,str,NULL,mychannel->language);
+	res = ast_say_character_str(mychannel,str,NULL,mychannel->language);
 	if (!res) 
 		res = ast_waitstream(mychannel, "");
 	else
@@ -8602,13 +8602,6 @@ struct	tm localtm;
 		else
 			 ast_log(LOG_WARNING, "ast_streamfile failed on %s\n", mychannel->name);
 		ast_stopstream(mychannel);
-		res = ast_streamfile(mychannel, "digits/2", mychannel->language);
-		if (!res) 
-			res = ast_waitstream(mychannel, "");
-		else
-			 ast_log(LOG_WARNING, "ast_streamfile failed on %s\n", mychannel->name);
-		ast_stopstream(mychannel);
-		saynode(myrpt,mychannel,strs[1]);
 		return;
 	}
 	if (!strcasecmp(strs[0],"CONNFAIL"))
@@ -9590,13 +9583,6 @@ treataslocal:
 		else
 			 ast_log(LOG_WARNING, "ast_streamfile failed on %s\n", mychannel->name);
 		ast_stopstream(mychannel);
-		res = ast_streamfile(mychannel, "digits/2", mychannel->language);
-		if (!res) 
-			res = ast_waitstream(mychannel, "");
-		else
-			 ast_log(LOG_WARNING, "ast_streamfile failed on %s\n", mychannel->name);
-		ast_stopstream(mychannel);
-		res = saynode(myrpt,mychannel,myrpt->name);
 		imdone = 1;
 		break;
 	    case CONNFAIL:
