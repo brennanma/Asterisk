@@ -664,12 +664,12 @@ struct eldb *node,*mynode;
 	strncpy(node->callsign,callsign,ELDB_CALLSIGNLEN - 1);
 	mynode = el_db_find_nodenum(node->nodenum);
 	if (mynode) el_db_delete(mynode);
-	mynode = el_db_find_ipaddr(node->ipaddr);
-	if (mynode) el_db_delete(mynode);
+	//mynode = el_db_find_ipaddr(node->ipaddr);
+	//if (mynode) el_db_delete(mynode);
 	mynode = el_db_find_callsign(node->callsign);
 	if (mynode) el_db_delete(mynode);
 	tsearch(node,&el_db_nodenum,compare_eldb_nodenum);
-	tsearch(node,&el_db_ipaddr,compare_eldb_ipaddr);
+	//tsearch(node,&el_db_ipaddr,compare_eldb_ipaddr);
 	tsearch(node,&el_db_callsign,compare_eldb_callsign);
 	if (debug > 1)
 		ast_log(LOG_DEBUG,"eldb put: Node=%s, Call=%s, IP=%s\n",nodenum,callsign,ipaddr);
@@ -2572,7 +2572,8 @@ static int do_new_call(struct el_instance *instp, struct el_pvt *p, char *call, 
 		strncpy(el_node_key->ip, instp->el_node_test.ip, EL_IP_SIZE);
 		strncpy(el_node_key->name,name,EL_NAME_SIZE); 
 		
-		mynode = el_db_find_ipaddr(el_node_key->ip);
+		//mynode = el_db_find_ipaddr(el_node_key->ip);
+		mynode = el_db_find_callsign(el_node_key->call);
 		if (!mynode)
 		{
 			ast_log(LOG_ERROR, "Cannot find DB entry for IP addr %s\n",el_node_key->ip);
